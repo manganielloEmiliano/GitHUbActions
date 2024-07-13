@@ -12,18 +12,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: dotnet restore src/wpm-api/WisdomPetMedicine.sln
+
     - name: Build
       run: dotnet build src/wpm-api/WisdomPetMedicine.sln --no-restore
+
     - name: Test
       run: dotnet test src/wpm-api/WisdomPetMedicine.sln --no-build --verbosity normal
+
     - name: Publish
       run: dotnet publish src/wpm-api/WisdomPetMedicine.sln --configuration Release --output publish
+
+    - name: Verificar archivos publicados
+      run: ls -l publish
+
     - name: Subir datos
       uses: actions/upload-artifact@v3
       with:
@@ -39,6 +48,9 @@ jobs:
       with:
         name: published-files
         path: ./publish
+
+    - name: Verificar directorio después de la descarga
+      run: ls -l
+
     - name: muestra el contenido del artifact
-      shell: bash
-      run: ls publish -R
+      run: ls -R publish
