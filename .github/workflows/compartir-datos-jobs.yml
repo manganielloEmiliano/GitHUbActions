@@ -27,18 +27,18 @@ jobs:
     - name: Subir datos
       uses: actions/upload-artifact@v3
       with:
-        name: publish
+        name: published-files
         path: publish
 
   storage:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: build
     steps:
     - name: descargar datos
       uses: actions/download-artifact@v3
       with:
-        name: publish
+        name: published-files
+        path: ./publish
     - name: muestra el contenido del artifact
       shell: bash
       run: ls publish -R
-
