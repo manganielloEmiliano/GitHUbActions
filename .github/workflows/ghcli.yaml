@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     input:
       tag:
-        description:etiqueta para la imagen de docker
+        description: etiqueta para la imagen de docker
       required: true
       default: latest
 
