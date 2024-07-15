@@ -2,6 +2,12 @@ name: ghcli
 
 on:
   workflow_dispatch:
+    input:
+      tag:
+        description:etiqueta para la imagen de docker
+      required: true
+      default: latest
+
   push:
     branches: [ "main" ]
   pull_request:
@@ -32,4 +38,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: docker build
-      run: docker build src/wpm-api --file src/wpm-api/WisdomPetMedicine.Api/Dockerfile --tag github-action-esencial
+      run: docker build src/wpm-api --file src/wpm-api/WisdomPetMedicine.Api/Dockerfile --tag github-action-esencial:${{github.event.inputs.tag}}
